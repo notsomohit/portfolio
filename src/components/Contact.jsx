@@ -19,14 +19,17 @@ export default function Contact() {
       className="relative min-h-[90vh] flex flex-col justify-between px-6 sm:px-12 lg:px-20 py-40 lg:py-56 bg-[#0A0A0A] border-t border-neutral-900 select-none"
     >
       <div>
-        {/* Section Header */}
-        <div className="flex items-baseline gap-4 sm:gap-6 mb-16">
-          <span className="font-mono text-base sm:text-lg font-bold text-[#8B5CF6]">
-            04
-          </span>
-          <span className="font-mono text-sm sm:text-base text-neutral-500 uppercase tracking-widest">
-            CONTACT // GET IN TOUCH
-          </span>
+        {/* Section Header with Consistent Thin Divider */}
+        <div className="mb-20">
+          <div className="flex items-baseline gap-4 sm:gap-6 mb-4">
+            <span className="font-mono text-base sm:text-lg font-bold text-[#8B5CF6]">
+              04
+            </span>
+            <h2 className="font-display text-[clamp(4rem,9vw,8rem)] font-black text-white tracking-tight">
+              CONTACT
+            </h2>
+          </div>
+          <div className="w-full h-[1px] bg-neutral-800" />
         </div>
 
         {/* Huge Editorial Headline */}

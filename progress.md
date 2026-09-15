@@ -8,32 +8,24 @@
 
 ---
 
-## Completed Design & Implementation
+## Completed Fixes & Design Highlights
 
-- [x] **Tech Stack Icon Style & Architecture**
-  - Independent, separate dark rounded-square icon badges (`w-[72px] h-[72px] sm:w-[88px] sm:h-[88px]`, `bg-[#141414] border border-neutral-800/80`) holding only the brand-colored icon
-  - Plain text label sitting as a distinct sibling element (not sharing the badge's background or border)
-  - 4 Numbered clusters in horizontal scroll track (`01 LANGUAGES`, `02 FRAMEWORKS`, `03 DATABASES`, `04 TOOLS & TECH`)
+- [x] **Main "SKILLS" Section Title Maintained (`HorizontalSkills.jsx`)**
+  - The top-level section header with giant **SKILLS** display headline, violet `02` index, and thin divider line is persistent and intact
+  - Only the sub-category titles (`LANGUAGES`, `FRAMEWORKS`, `DATA & ML`, `DATABASES`, `TOOLS & TECH`) inside the horizontal track scroll up and out (`y: -70`, `opacity: 0`) as their icon grids take over the screen center
 
-- [x] **Curated Top 3 Projects with Real Image Previews**
-  - Cut down to top 3 projects: **ORBIT**, **OTTO**, and **CINEFLIX**
-  - Generated and integrated high-fidelity preview images in `/src/assets/projects/` (`orbit.png`, `otto.png`, `cineflix.png`)
-  - Sticky right panel uses a uniform aspect ratio frame (`aspect-[16/10] rounded-2xl overflow-hidden border border-neutral-800 bg-[#141414]`) with `object-cover` crossfading between active project blocks
-  - Direct image references configured in `projectsData.js`
+- [x] **SQL Re-Added to Languages (`skillsData.js`)**
+  - **Languages**: JavaScript, TypeScript, Python, Java, SQL
+  - **Frameworks**: React.js, Node.js, Express.js
+  - **Data & ML**: Pandas, NumPy, Matplotlib
+  - **Databases**: MongoDB
+  - **Tools & Tech**: Git, GitHub, Tailwind CSS, REST API, Postman, JWT, bcrypt, Arcjet, XAMPP
 
-- [x] **Clean Section Structure & Updated Numbering**
-  - **Hero** (no index) — *MOHIT.* kinetic typography, punchy tagline, CTAs, corner micro-labels
-  - **About (`01`)** — Line-by-line staggered bio on AI & full-stack development
-  - **Skills (`02`)** — Pinned horizontal track with distinct icon boxes + plain text sibling labels
-  - **Projects (`03`)** — Split sticky showcase for Orbit, Otto, and CineFlix with uniform preview frame
-  - **Contact (`04`)** — Giant *LET'S TALK.* headline + 3 direct action cards (email, github, linkedin)
-  - *Experience / Timeline section removed entirely*
-
-- [x] **Generous Spacing & Scale**
-  - Massive vertical section padding (10-14rem+ / `py-40 lg:py-56`)
-  - Wide grid gaps and increased font scale for body copy, tech tags, and metadata
-  - High negative space, zero gimmicky UI chrome (no progress bars, no scroll indicators, no particles)
+- [x] **Enforced Sticky Project Preview Panel (`StickyProjects.jsx`)**
+  - Positioned with `sticky top-28 self-start` and `overflow-x: clip` on ancestor containers to guarantee persistent pinning throughout the entire Projects section (Orbit → Otto → CineFlix)
+  - Releases only after the final project block (CineFlix) has completely scrolled past
+  - Includes top-left index/category micro-label (`01 // FULL-STACK PLATFORM`), browser chrome with traffic lights & active URL, bottom-left `"SHOWCASE // REAL PREVIEW"` micro-label, and bottom-right pagination (`01 / 03`, `02 / 03`, `03 / 03`) with live updating
 
 - [x] **Build & Runtime Verification**
-  - Production build compiled in 970ms with zero errors
-  - Running on Vite dev server
+  - Production build compiled in 547ms with zero errors
+  - Running smoothly on Vite dev server

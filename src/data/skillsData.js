@@ -21,24 +21,33 @@ export const skillClusters = [
   },
   {
     index: "03",
-    name: "DATABASES",
+    name: "DATA & ML",
     skills: [
-      { name: "MongoDB", iconKey: "SiMongodb", color: "#47A248" },
-      { name: "PostgreSQL / MySQL", iconKey: "SiPostgresql", color: "#4169E1" },
+      { name: "Pandas", iconKey: "SiPandas", color: "#150458" },
+      { name: "NumPy", iconKey: "SiNumpy", color: "#4DABCF" },
+      { name: "Matplotlib", iconKey: "SiPython", color: "#11557C" },
     ]
   },
   {
     index: "04",
+    name: "DATABASES",
+    skills: [
+      { name: "MongoDB", iconKey: "SiMongodb", color: "#47A248" },
+    ]
+  },
+  {
+    index: "05",
     name: "TOOLS & TECH",
     skills: [
       { name: "Git", iconKey: "SiGit", color: "#F05032" },
       { name: "GitHub", iconKey: "SiGithub", color: "#FFFFFF" },
       { name: "Tailwind CSS", iconKey: "SiTailwindcss", color: "#06B6D4" },
-      { name: "REST APIs", iconKey: "TbApi", color: "#8B5CF6" },
-      { name: "Postman API", iconKey: "SiPostman", color: "#FF6C37" },
+      { name: "REST API", iconKey: "TbApi", color: "#8B5CF6" },
+      { name: "Postman", iconKey: "SiPostman", color: "#FF6C37" },
       { name: "JWT", iconKey: "SiJsonwebtokens", color: "#FFFFFF" },
       { name: "bcrypt", iconKey: "SiAuth0", color: "#EB5424" },
       { name: "Arcjet", iconKey: "BsShieldLockFill", color: "#8B5CF6" },
+      { name: "XAMPP", iconKey: "SiXampp", color: "#FB7A24" },
     ]
   }
 ];

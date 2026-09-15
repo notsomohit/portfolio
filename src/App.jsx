@@ -81,7 +81,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A0A] text-[#FAFAFA] selection:bg-[#8B5CF6] selection:text-white overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#0A0A0A] text-[#FAFAFA] selection:bg-[#8B5CF6] selection:text-white overflow-x-clip">
       {/* Minimal Desktop Custom Cursor */}
       <CustomCursor />
 

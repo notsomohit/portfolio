@@ -43,14 +43,17 @@ export default function About() {
     >
       <div className="max-w-6xl">
         
-        {/* Section Index & Title */}
-        <div className="flex items-baseline gap-4 sm:gap-6 mb-20">
-          <span className="font-mono text-base sm:text-lg font-bold text-[#8B5CF6]">
-            01
-          </span>
-          <h2 className="font-display text-[clamp(4rem,9vw,8rem)] font-black text-white tracking-tight">
-            ABOUT
-          </h2>
+        {/* Section Index & Title with Consistent Thin Divider */}
+        <div className="mb-20">
+          <div className="flex items-baseline gap-4 sm:gap-6 mb-4">
+            <span className="font-mono text-base sm:text-lg font-bold text-[#8B5CF6]">
+              01
+            </span>
+            <h2 className="font-display text-[clamp(4rem,9vw,8rem)] font-black text-white tracking-tight">
+              ABOUT
+            </h2>
+          </div>
+          <div className="w-full h-[1px] bg-neutral-800" />
         </div>
 
         {/* Big Staggered Editorial Bio */}
