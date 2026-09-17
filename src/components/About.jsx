@@ -79,13 +79,13 @@ export default function About() {
           <div className="w-full h-[1px] bg-neutral-800" />
         </div>
 
-        {/* Two-Column Layout: Bio text on Left, Photo placeholder box on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        {/* Two-Column Layout: Bio text on Left, 3D Model / Portrait container on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* LEFT COLUMN: Bio text */}
           <div
             ref={bioRef}
-            className="lg:col-span-7 space-y-8 sm:space-y-10 text-neutral-300 font-normal leading-relaxed"
+            className="lg:col-span-6 space-y-8 sm:space-y-10 text-neutral-300 font-normal leading-relaxed"
           >
             <p className="bio-line text-2xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-snug">
               Full-stack developer who enjoys building clean, functional products end-to-end.
@@ -101,12 +101,16 @@ export default function About() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Empty Photo Placeholder Box (Aspect ~3:4 / 4:5) */}
+          {/* RIGHT COLUMN: 3D Model / Portrait Container (~590px x 730px on desktop, ~4:5 aspect ratio) */}
           <div
             ref={imageBoxRef}
-            className="lg:col-span-5 w-full max-w-md mx-auto lg:max-w-none"
+            className="lg:col-span-6 w-full flex justify-center lg:justify-end"
           >
-            <div className="w-full aspect-[4/5] rounded-2xl bg-[#141414] border border-neutral-800/80 flex flex-col items-center justify-center relative overflow-hidden group hover:border-neutral-700 transition-colors duration-300 shadow-2xl">
+            <div
+              id="about-3d-container"
+              className="w-full max-w-[590px] aspect-[4/5] min-h-[380px] sm:min-h-[480px] lg:h-[730px] rounded-2xl bg-[#141414] border border-neutral-800/80 flex flex-col items-center justify-center relative overflow-hidden group hover:border-neutral-700 transition-colors duration-300 shadow-2xl select-none"
+              style={{ aspectRatio: "4/5" }}
+            >
               {aboutPhotoSrc ? (
                 <img
                   src={aboutPhotoSrc}
@@ -114,24 +118,24 @@ export default function About() {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="flex flex-col items-center justify-center gap-4 text-center p-8">
+                <div className="flex flex-col items-center justify-center gap-4 text-center p-8 z-10">
                   <div className="w-16 h-16 rounded-full bg-[#1c1c1c] border border-neutral-700/60 flex items-center justify-center text-neutral-500 group-hover:text-[#8B5CF6] transition-colors">
                     <User className="w-7 h-7" />
                   </div>
                   <div className="font-mono text-xs text-neutral-500 tracking-wider uppercase">
-                    <span>PORTRAIT PHOTO</span>
+                    <span>3D MODEL / PORTRAIT ASSET</span>
                     <span className="block text-[10px] text-neutral-600 mt-1">
-                      (Drop in asset anytime)
+                      (Container ready · 590 × 730)
                     </span>
                   </div>
                 </div>
               )}
 
               {/* Corner Frame Lines */}
-              <div className="absolute top-3 left-3 w-3 h-3 border-t border-l border-neutral-700" />
-              <div className="absolute top-3 right-3 w-3 h-3 border-t border-r border-neutral-700" />
-              <div className="absolute bottom-3 left-3 w-3 h-3 border-b border-l border-neutral-700" />
-              <div className="absolute bottom-3 right-3 w-3 h-3 border-b border-r border-neutral-700" />
+              <div className="absolute top-3 left-3 w-3 h-3 border-t border-l border-neutral-700 pointer-events-none" />
+              <div className="absolute top-3 right-3 w-3 h-3 border-t border-r border-neutral-700 pointer-events-none" />
+              <div className="absolute bottom-3 left-3 w-3 h-3 border-b border-l border-neutral-700 pointer-events-none" />
+              <div className="absolute bottom-3 right-3 w-3 h-3 border-b border-r border-neutral-700 pointer-events-none" />
             </div>
           </div>
 

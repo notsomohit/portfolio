@@ -46,6 +46,45 @@
   background: #8B5CF6;
 }
 
+/* Custom horizontal scrollbar for repo row */
+.custom-repo-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a #141414;
+}
+
+.custom-repo-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.custom-repo-scroll::-webkit-scrollbar-track {
+  background: #141414;
+  border-radius: 4px;
+}
+
+.custom-repo-scroll::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+
+.custom-repo-scroll::-webkit-scrollbar-thumb:hover {
+  background: #8B5CF6;
+}
+
+/* Hide default cursor on desktop devices with fine pointer */
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"],
+  label {
+    cursor: none !important;
+  }
+}
+
 /* Looping vertical scroll line indicator */
 @keyframes travelingDot {
   0% {

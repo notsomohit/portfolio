@@ -9,14 +9,45 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import HorizontalSkills from "./components/HorizontalSkills";
 import StickyProjects from "./components/StickyProjects";
+import GithubStats from "./components/GithubStats";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import TerminalModal, { TerminalCornerHint } from "./components/TerminalModal";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("hero");
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const lenisRef = useRef(null);
+
+  // Global keyboard shortcut listener for terminal (` or Cmd+K / Ctrl+K)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Toggle on backtick (` or ~) when not actively typing in an input/textarea outside terminal
+      if (e.key === "`" || e.key === "~") {
+        const activeTag = document.activeElement?.tagName?.toLowerCase();
+        if (activeTag !== "input" && activeTag !== "textarea") {
+          e.preventDefault();
+          setIsTerminalOpen((prev) => !prev);
+        }
+      }
+
+      // Toggle on Cmd+K or Ctrl+K
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsTerminalOpen((prev) => !prev);
+      }
+
+      // Close on Escape
+      if (e.key === "Escape" && isTerminalOpen) {
+        setIsTerminalOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isTerminalOpen]);
 
   useEffect(() => {
     // 1. Initialize Lenis Smooth Scroll
@@ -43,10 +74,10 @@ export default function App() {
     gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
 
-    // 3. Section ScrollTriggers for navigation (Hero, About, Skills, Projects, Contact)
+    // 3. Section ScrollTriggers for navigation (Hero, About, Skills, Projects, Github, Contact)
     const mm = gsap.matchMedia();
     mm.add("(min-width: 768px)", () => {
-      const sections = ["hero", "about", "skills", "projects", "contact"];
+      const sections = ["hero", "about", "skills", "projects", "github", "contact"];
       sections.forEach((id) => {
         const el = document.getElementById(id);
         if (el) {
@@ -95,11 +126,23 @@ export default function App() {
         <About />
         <HorizontalSkills />
         <StickyProjects />
+        <GithubStats />
         <Contact />
       </main>
 
       {/* Full-width Expanded Footer */}
       <Footer onNavigate={handleNavigate} />
+
+      {/* CLI Easter Egg Terminal Modal */}
+      <TerminalModal
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+        onNavigate={handleNavigate}
+      />
+
+      {/* Persistent Floating Corner Hint */}
+      <TerminalCornerHint onOpen={() => setIsTerminalOpen(true)} />
     </div>
   );
 }
+

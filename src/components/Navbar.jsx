@@ -6,7 +6,8 @@ const navLinks = [
   { num: "01", label: "ABOUT", id: "about" },
   { num: "02", label: "SKILLS", id: "skills" },
   { num: "03", label: "PROJECTS", id: "projects" },
-  { num: "04", label: "CONTACT", id: "contact" },
+  { num: "04", label: "GITHUB", id: "github" },
+  { num: "05", label: "CONTACT", id: "contact" },
 ];
 
 export default function Navbar({ activeSection, onNavigate }) {
@@ -92,7 +93,7 @@ export default function Navbar({ activeSection, onNavigate }) {
         {/* Menu Top Meta */}
         <div className="flex justify-between items-center text-xs font-mono text-neutral-500 uppercase tracking-widest border-b border-neutral-800 pb-6 pt-16 sm:pt-14">
           <span>NAVIGATION</span>
-          <span className="text-[#8B5CF6]">04 SECTIONS</span>
+          <span className="text-[#8B5CF6]">05 SECTIONS</span>
         </div>
 
         {/* Big Editorial Nav Links */}
