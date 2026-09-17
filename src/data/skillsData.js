@@ -17,6 +17,7 @@ export const skillClusters = [
       { name: "React.js", iconKey: "SiReact", color: "#61DAFB" },
       { name: "Node.js", iconKey: "SiNodedotjs", color: "#5FA04E" },
       { name: "Express.js", iconKey: "SiExpress", color: "#FFFFFF" },
+      { name: "Tailwind CSS", iconKey: "SiTailwindcss", color: "#06B6D4" },
     ]
   },
   {
@@ -37,17 +38,28 @@ export const skillClusters = [
   },
   {
     index: "05",
-    name: "TOOLS & TECH",
+    name: "VERSION CONTROL",
     skills: [
       { name: "Git", iconKey: "SiGit", color: "#F05032" },
       { name: "GitHub", iconKey: "SiGithub", color: "#FFFFFF" },
-      { name: "Tailwind CSS", iconKey: "SiTailwindcss", color: "#06B6D4" },
-      { name: "REST API", iconKey: "TbApi", color: "#8B5CF6" },
+    ]
+  },
+  {
+    index: "06",
+    name: "DEV & API TOOLS",
+    skills: [
       { name: "Postman", iconKey: "SiPostman", color: "#FF6C37" },
+      { name: "REST API", iconKey: "TbApi", color: "#8B5CF6" },
+      { name: "XAMPP", iconKey: "SiXampp", color: "#FB7A24" },
+    ]
+  },
+  {
+    index: "07",
+    name: "SECURITY & AUTH",
+    skills: [
       { name: "JWT", iconKey: "SiJsonwebtokens", color: "#FFFFFF" },
       { name: "bcrypt", iconKey: "SiAuth0", color: "#EB5424" },
       { name: "Arcjet", iconKey: "BsShieldLockFill", color: "#8B5CF6" },
-      { name: "XAMPP", iconKey: "SiXampp", color: "#FB7A24" },
     ]
   }
 ];

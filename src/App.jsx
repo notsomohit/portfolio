@@ -10,6 +10,7 @@ import About from "./components/About";
 import HorizontalSkills from "./components/HorizontalSkills";
 import StickyProjects from "./components/StickyProjects";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,28 +44,28 @@ export default function App() {
     gsap.ticker.lagSmoothing(0);
 
     // 3. Section ScrollTriggers for navigation (Hero, About, Skills, Projects, Contact)
-    const sections = ["hero", "about", "skills", "projects", "contact"];
-    const triggers = [];
-
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) {
-        const trigger = ScrollTrigger.create({
-          trigger: el,
-          start: "top 45%",
-          end: "bottom 45%",
-          onEnter: () => setActiveSection(id),
-          onEnterBack: () => setActiveSection(id),
-        });
-        triggers.push(trigger);
-      }
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
+      const sections = ["hero", "about", "skills", "projects", "contact"];
+      sections.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top 45%",
+            end: "bottom 45%",
+            onEnter: () => setActiveSection(id),
+            onEnterBack: () => setActiveSection(id),
+          });
+        }
+      });
     });
 
     return () => {
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
       window.__lenis = null;
-      triggers.forEach((t) => t.kill());
+      mm.revert();
     };
   }, []);
 
@@ -96,6 +97,9 @@ export default function App() {
         <StickyProjects />
         <Contact />
       </main>
+
+      {/* Full-width Expanded Footer */}
+      <Footer onNavigate={handleNavigate} />
     </div>
   );
 }

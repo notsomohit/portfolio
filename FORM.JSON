@@ -1,0 +1,196 @@
+{
+  "form_title": "Exposure to Violent Content on YouTube and Aggressive Behavior Among Teenagers in India: A Correlational Study",
+  "form_description": "This questionnaire is part of a Mid Semester Review dissertation study conducted at the School of Communications, XIM University. Your participation is completely voluntary, and all responses will be kept strictly confidential and used solely for academic research purposes.",
+  "sections": [
+    {
+      "section_title": "Section 1: Informed Consent and Participant Information",
+      "questions": [
+        {
+          "id": 1,
+          "question_text": "Do you consent to voluntarily participate in this study?",
+          "question_type": "multiple_choice",
+          "options": ["Yes", "No"]
+        },
+        {
+          "id": 2,
+          "question_text": "What is your age?",
+          "question_type": "multiple_choice",
+          "options": [
+            "13–14 years (Early Adolescence)",
+            "15–17 years (Middle Adolescence)",
+            "18–19 years (Late Adolescence)",
+            "20 years or older (Note: Responses from participants aged 20 and above will be filtered out during data cleaning as the study focuses specifically on teenagers aged 13–19)"
+          ]
+        },
+        {
+          "id": 3,
+          "question_text": "What is your gender?",
+          "question_type": "multiple_choice",
+          "options": ["Male", "Female", "Other / Prefer not to say"]
+        },
+        {
+          "id": 4,
+          "question_text": "Do you use YouTube on a regular basis (at least a few times a week)?",
+          "question_type": "multiple_choice",
+          "options": ["Yes", "No"]
+        }
+      ]
+    },
+    {
+      "section_title": "Section 2: YouTube Usage Patterns & Exposure to Violent Content",
+      "questions": [
+        {
+          "id": 5,
+          "question_text": "On average, how much time do you spend watching YouTube daily?",
+          "question_type": "multiple_choice",
+          "options": ["Less than 1 hour", "1 to 2 hours", "2 to 4 hours", "More than 4 hours"]
+        },
+        {
+          "id": 6,
+          "question_text": "Which features on YouTube do you use or encounter the most? (Check all that apply)",
+          "question_type": "checkboxes",
+          "options": [
+            "Standard search bar",
+            "YouTube Recommendations",
+            "Autoplay feature",
+            "YouTube Shorts",
+            "Subscribed Channels"
+          ]
+        },
+        {
+          "id": 7,
+          "question_text": "How often do you encounter violent content (such as physical fights, weapons, aggressive crime scenes, or intense brawls) on YouTube?",
+          "question_type": "multiple_choice",
+          "options": ["Never", "Rarely", "Sometimes", "Often", "Very Often"]
+        },
+        {
+          "id": 8,
+          "question_text": "When you encounter violent content on YouTube, how does it usually happen?",
+          "question_type": "multiple_choice",
+          "options": [
+            "I actively search for it",
+            "It appears through the recommendation algorithm",
+            "It shows up on YouTube Shorts",
+            "It is autoplayed after another video",
+            "Shared by peers/friends"
+          ]
+        },
+        {
+          "id": 9,
+          "question_text": "When you see violent videos on YouTube, how realistic do you feel they are compared to real-life violence?",
+          "question_type": "multiple_choice",
+          "options": ["Not realistic at all", "Slightly realistic", "Moderately realistic", "Very realistic", "Extremely realistic"]
+        }
+      ]
+    },
+    {
+      "section_title": "Section 3: Aggressive Behavior Measure (Buss-Perry Framework)",
+      "instructions": "Rate each statement on a 5-point scale from 1 (Extremely uncharacteristic of me) to 5 (Extremely characteristic of me).",
+      "parts": [
+        {
+          "part_name": "Part A: Physical Aggression",
+          "questions": [
+            {
+              "id": 10,
+              "statement": "Given enough provocation, I may hit another person.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            },
+            {
+              "id": 11,
+              "statement": "There are people who pushed me so far that we came to blows.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            },
+            {
+              "id": 12,
+              "statement": "If somebody hits me, I hit back.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            }
+          ]
+        },
+        {
+          "part_name": "Part B: Verbal Aggression",
+          "questions": [
+            {
+              "id": 13,
+              "statement": "I can't help getting into arguments when people disagree with me.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            },
+            {
+              "id": 14,
+              "statement": "My friends say that I argue a lot.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            },
+            {
+              "id": 15,
+              "statement": "I tell my friends openly when I disagree with them angrily.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            }
+          ]
+        },
+        {
+          "part_name": "Part C: Anger",
+          "questions": [
+            {
+              "id": 16,
+              "statement": "I flare up quickly but get over it fast.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            },
+            {
+              "id": 17,
+              "statement": "Sometimes I feel like a powder keg ready to explode.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            },
+            {
+              "id": 18,
+              "statement": "When I am frustrated, I display my temper outwardly.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            }
+          ]
+        },
+        {
+          "part_name": "Part D: Hostility",
+          "questions": [
+            {
+              "id": 19,
+              "statement": "I sometimes feel that people are laughing at me behind my back.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            },
+            {
+              "id": 20,
+              "statement": "When people are nice, I wonder what they want.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            },
+            {
+              "id": 21,
+              "statement": "I wonder what hidden reasons lie behind the good things people do for me.",
+              "scale": "1 (Extremely uncharacteristic) to 5 (Extremely characteristic)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_title": "Section 4: Contextual & Moderating Variables",
+      "questions": [
+        {
+          "id": 22,
+          "question_text": "How often do your friends share or discuss violent or action-heavy videos with you?",
+          "question_type": "multiple_choice",
+          "options": ["Never", "Rarely", "Sometimes", "Frequently"]
+        },
+        {
+          "id": 23,
+          "question_text": "Do your parents or guardians monitor, discuss, or set limits on what you watch on YouTube?",
+          "question_type": "multiple_choice",
+          "options": ["Never", "Rarely", "Sometimes", "Regularly"]
+        },
+        {
+          "id": 24,
+          "question_text": "How often do you watch YouTube content unsupervised in a private space (e.g., your own room late at night)?",
+          "question_type": "multiple_choice",
+          "options": ["Rarely", "Sometimes", "Often", "Always"]
+        }
+      ]
+    }
+  ]
+}

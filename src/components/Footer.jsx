@@ -1,50 +1,65 @@
 import React from "react";
-import { ArrowUp, Heart, Sparkles, Terminal } from "lucide-react";
+import { ArrowUp, ArrowUpRight } from "lucide-react";
 
 export default function Footer({ onNavigate }) {
   const handleScrollTop = (e) => {
     e.preventDefault();
-    if (window.__lenis) {
-      window.__lenis.scrollTo(0, { duration: 1.5 });
+    if (onNavigate) {
+      onNavigate("hero");
+    } else if (window.__lenis) {
+      window.__lenis.scrollTo(0, { duration: 1.4 });
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   return (
-    <footer className="relative border-t border-white/10 bg-[#06080d] py-12 px-4 sm:px-6 lg:px-8 z-10">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+    <footer className="relative w-full bg-[#070707] border-t border-neutral-900 px-6 sm:px-12 lg:px-20 py-12 sm:py-16 select-none z-10">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8 sm:gap-6">
         
-        {/* Left: Branding */}
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-md shadow-cyan-500/30">
-            M
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-white">
-              Mohit <span className="text-cyan-400 font-mono">Full-Stack Engineer</span>
-            </p>
-            <p className="text-xs text-slate-400">
-              Crafted with React, Tailwind CSS, GSAP & Lenis
-            </p>
-          </div>
+        {/* Left Side: Copyright Meta */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-xs font-mono text-neutral-500 uppercase tracking-widest">
+          <span>© 2026 MOHIT. ALL RIGHTS RESERVED.</span>
+          <span className="hidden sm:inline text-neutral-700">//</span>
+          <span className="text-neutral-600">DESIGNED WITH RESTRAINT</span>
         </div>
 
-        {/* Center: Status */}
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>All systems operational • 2026</span>
-        </div>
+        {/* Center / Right Side: Contact Links Repetition & Back to Top */}
+        <div className="flex flex-wrap items-center gap-6 sm:gap-8 text-xs font-mono uppercase tracking-wider">
+          <a
+            href="mailto:mohitascend07@gmail.com"
+            className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1"
+          >
+            EMAIL <ArrowUpRight className="w-3.5 h-3.5 text-[#8B5CF6]" />
+          </a>
 
-        {/* Right: Back to Top */}
-        <button
-          onClick={handleScrollTop}
-          className="flex items-center gap-2 px-4 py-2 rounded-full glass-card hover:bg-white/10 text-xs font-medium text-slate-300 hover:text-cyan-300 border border-white/10 hover:border-cyan-500/40 transition-all group"
-          aria-label="Back to top"
-        >
-          <span>Back to top</span>
-          <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
-        </button>
+          <a
+            href="https://github.com/notsomohit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1"
+          >
+            GITHUB <ArrowUpRight className="w-3.5 h-3.5 text-[#8B5CF6]" />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/notsomohit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1"
+          >
+            LINKEDIN <ArrowUpRight className="w-3.5 h-3.5 text-[#8B5CF6]" />
+          </a>
+
+          <button
+            onClick={handleScrollTop}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#141414] hover:bg-[#1c1c1c] text-neutral-300 hover:text-white border border-neutral-800 transition-all group focus:outline-none"
+            aria-label="Back to top"
+          >
+            <span>BACK TO TOP</span>
+            <ArrowUp className="w-3.5 h-3.5 text-[#8B5CF6] group-hover:-translate-y-0.5 transition-transform" />
+          </button>
+        </div>
 
       </div>
     </footer>

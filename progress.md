@@ -8,24 +8,42 @@
 
 ---
 
-## Completed Fixes & Design Highlights
+## Completed Design & Implementation
 
-- [x] **Main "SKILLS" Section Title Maintained (`HorizontalSkills.jsx`)**
-  - The top-level section header with giant **SKILLS** display headline, violet `02` index, and thin divider line is persistent and intact
-  - Only the sub-category titles (`LANGUAGES`, `FRAMEWORKS`, `DATA & ML`, `DATABASES`, `TOOLS & TECH`) inside the horizontal track scroll up and out (`y: -70`, `opacity: 0`) as their icon grids take over the screen center
+- [x] **Full-Width Expanded Footer (`Footer.jsx`)**
+  - Left side: `"© 2026 MOHIT. ALL RIGHTS RESERVED."` with design meta
+  - Center/Right side: Contact links repeated (`EMAIL`, `GITHUB`, `LINKEDIN`)
+  - `"BACK TO TOP ↑"` button that smooth-scrolls to Hero with Lenis
+  - Separated from Contact by a subtle top border line with generous padding (`py-12 sm:py-16`)
 
-- [x] **SQL Re-Added to Languages (`skillsData.js`)**
-  - **Languages**: JavaScript, TypeScript, Python, Java, SQL
-  - **Frameworks**: React.js, Node.js, Express.js
-  - **Data & ML**: Pandas, NumPy, Matplotlib
-  - **Databases**: MongoDB
-  - **Tools & Tech**: Git, GitHub, Tailwind CSS, REST API, Postman, JWT, bcrypt, Arcjet, XAMPP
+- [x] **7 Sequentially Numbered Skills Clusters (`skillsData.js`)**
+  - `01 LANGUAGES` → JavaScript, TypeScript, Python, Java, SQL
+  - `02 FRAMEWORKS` → React.js, Node.js, Express.js, Tailwind CSS
+  - `03 DATA & ML` → Pandas, NumPy, Matplotlib
+  - `04 DATABASES` → MongoDB
+  - `05 VERSION CONTROL` → Git, GitHub
+  - `06 DEV & API TOOLS` → Postman, REST API, XAMPP
+  - `07 SECURITY & AUTH` → JWT, bcrypt, Arcjet
 
-- [x] **Enforced Sticky Project Preview Panel (`StickyProjects.jsx`)**
-  - Positioned with `sticky top-28 self-start` and `overflow-x: clip` on ancestor containers to guarantee persistent pinning throughout the entire Projects section (Orbit → Otto → CineFlix)
-  - Releases only after the final project block (CineFlix) has completely scrolled past
-  - Includes top-left index/category micro-label (`01 // FULL-STACK PLATFORM`), browser chrome with traffic lights & active URL, bottom-left `"SHOWCASE // REAL PREVIEW"` micro-label, and bottom-right pagination (`01 / 03`, `02 / 03`, `03 / 03`) with live updating
+- [x] **Upward Vertical Alignment in Skills (`HorizontalSkills.jsx`)**
+  - Shifted the entire cluster container higher up vertically (`-mt-10` on desktop) so titles start closer to the top third and the icon grid sits prominently centered without colliding with the bottom edge
+
+- [x] **Animated Scroll Indicator in Hero (`Hero.jsx` & `index.css`)**
+  - Replaced `"KEEP SCROLLING"` text with a minimal looping vertical line and traveling dot indicator in the bottom-left corner
+  - Fades out smoothly as the user scrolls down
+
+- [x] **Simplified Navbar Monogram (`Navbar.jsx`)**
+  - Removed `"MOHIT // DEV"` text label; kept solely the circular `"M"` white monogram badge
+
+- [x] **Two-Column About Section with Photo Placeholder (`About.jsx`)**
+  - Left column: Bio text with line-by-line staggered reveal
+  - Right column: Empty photo placeholder box (aspect ~4:5 with subtle corner framing lines) ready for one-line image asset replacement
+  - Stacks gracefully on mobile (text first, photo placeholder below)
+
+- [x] **Full Mobile Responsiveness Audit & Fixes**
+  - Disabled horizontal scroll-jacking and pinning below 768px (`gsap.matchMedia`)
+  - Skills and Projects render as native vertical stacks on mobile
+  - Responsive font `clamp()` values scale cleanly on small screens (375px, 390px, 414px) with zero horizontal overflow or clipping
 
 - [x] **Build & Runtime Verification**
-  - Production build compiled in 547ms with zero errors
-  - Running smoothly on Vite dev server
+  - Production build compiled in 581ms with zero errors.
