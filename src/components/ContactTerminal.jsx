@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Terminal as TerminalIcon, CornerDownLeft } from "lucide-react";
 import { skillClusters } from "../data/skillsData";
 import { fetchActualPinnedRepos, DEFAULT_PINNED_REPOS } from "../data/githubPinned";
+import { fetchGithubActivityStats } from "../data/githubStats";
 
 const EMAIL = "mohitascend07@gmail.com";
 const GITHUB_URL = "https://github.com/notsomohit";
@@ -122,6 +123,8 @@ export default function ContactTerminal() {
   help        → List all available functions
   about       → Who I am and what I build
   skills      → Tech stack, frameworks, tools & security
+  stats       → GitHub lifetime commits, active streak & records
+  streak      → Current & longest GitHub daily streak
   projects    → Pinned GitHub repositories dynamically synced
   commits     → Fetch recent public commits LIVE from GitHub API
   contact     → All direct contact channels
@@ -133,6 +136,58 @@ export default function ContactTerminal() {
   date        → Current system date & time
   clear       → Clear terminal screen`;
       setHistory((prev) => [...prev, { id: Math.random().toString(), type: "output", content: helpText }]);
+      return;
+    }
+
+    if (normalizedCmd === "stats") {
+      setIsLoading(true);
+      setHistory((prev) => [
+        ...prev,
+        {
+          id: "loading-stats",
+          type: "output",
+          content: "Fetching GitHub metrics & streak analytics for @notsomohit ...",
+        },
+      ]);
+
+      const ghStats = await fetchGithubActivityStats();
+      const statsText = `GitHub Analytics & Activity for @notsomohit:
+  • Total Commits / Contributions : ${ghStats.totalCommits}+
+  • Current Streak               : ${ghStats.currentStreak} Days (Active)
+  • Longest Streak               : ${ghStats.longestStreak} Days (Record)
+  • Public Repositories          : ${ghStats.publicRepos}
+  • Status                       : ${ghStats.bio}`;
+
+      setHistory((prev) => [
+        ...prev.filter((item) => item.id !== "loading-stats"),
+        { id: Math.random().toString(), type: "output", content: statsText },
+      ]);
+      setIsLoading(false);
+      return;
+    }
+
+    if (normalizedCmd === "streak") {
+      setIsLoading(true);
+      setHistory((prev) => [
+        ...prev,
+        {
+          id: "loading-streak",
+          type: "output",
+          content: "Calculating current GitHub contribution streak ...",
+        },
+      ]);
+
+      const ghStats = await fetchGithubActivityStats();
+      const streakText = `GitHub Contribution Streak:
+  🔥 Current Streak : ${ghStats.currentStreak} Days (Daily consistency)
+  🏆 Longest Streak : ${ghStats.longestStreak} Days (All-time personal best)
+  📊 Total Commits  : ${ghStats.totalCommits}+ contributions`;
+
+      setHistory((prev) => [
+        ...prev.filter((item) => item.id !== "loading-streak"),
+        { id: Math.random().toString(), type: "output", content: streakText },
+      ]);
+      setIsLoading(false);
       return;
     }
 
