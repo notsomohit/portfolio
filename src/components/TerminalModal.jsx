@@ -1,32 +1,7 @@
-"use client";
-
 import React, { useState, useEffect, useRef } from "react";
 import { Terminal as TerminalIcon, X } from "lucide-react";
 import { skillClusters } from "../data/skillsData";
-
-const PINNED_PROJECTS = [
-  {
-    name: "portfolio",
-    description: "Personal minimalist developer portfolio with GSAP kinetic animations & dark aesthetic.",
-    language: "JavaScript",
-    stars: 5,
-    url: "https://github.com/notsomohit/portfolio",
-  },
-  {
-    name: "agentic-workflow-engine",
-    description: "Autonomous LLM agent coordination framework with tool use and memory management.",
-    language: "Python",
-    stars: 8,
-    url: "https://github.com/notsomohit",
-  },
-  {
-    name: "next-fullstack-starter",
-    description: "Production-ready boilerplate featuring Next.js, TypeScript, Tailwind, and Auth.",
-    language: "TypeScript",
-    stars: 4,
-    url: "https://github.com/notsomohit",
-  },
-];
+import { fetchActualPinnedRepos, DEFAULT_PINNED_REPOS } from "../data/githubPinned";
 
 const EMAIL = "mohitascend07@gmail.com";
 const GITHUB_URL = "https://github.com/notsomohit";
@@ -48,14 +23,12 @@ export default function TerminalModal({ isOpen, onClose }) {
   const inputRef = useRef(null);
   const terminalEndRef = useRef(null);
 
-  // Auto-scroll to bottom when history changes
   useEffect(() => {
     if (terminalEndRef.current) {
       terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [history, isLoading]);
 
-  // Focus input when terminal opens
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
@@ -153,7 +126,7 @@ export default function TerminalModal({ isOpen, onClose }) {
   help        - Displays this command reference
   about       - Who I am and what I do
   skills      - Tech stack, frameworks, tools & security
-  projects    - Pinned GitHub repositories and descriptions
+  projects    - Pinned GitHub repositories dynamically synced
   commits     - Fetch recent public commits LIVE from GitHub API
   contact     - Direct contact channels
   email       - Displays email address
@@ -192,14 +165,32 @@ export default function TerminalModal({ isOpen, onClose }) {
     }
 
     if (lowerCmd === "projects") {
-      const formattedProjects = PINNED_PROJECTS.map((p) => {
-        return `• ${p.name} [${p.language} ★${p.stars}]
-  Description: ${p.description}
-  URL: ${p.url}`;
+      setIsLoading(true);
+      setHistory((prev) => [
+        ...prev,
+        {
+          id: "modal-loading-projects",
+          type: "output",
+          content: "Fetching actual pinned GitHub repositories for @notsomohit ...",
+        },
+      ]);
+
+      const pinnedList = await fetchActualPinnedRepos();
+      const reposToDisplay = pinnedList && pinnedList.length > 0 ? pinnedList : DEFAULT_PINNED_REPOS;
+
+      const formattedProjects = reposToDisplay.map((p) => {
+        return `• ${p.name} [${p.language || "Code"} ★${p.stars ?? 0}]
+  Description: ${p.description || "GitHub repository"}
+  URL: ${p.url || `https://github.com/notsomohit/${p.name}`}`;
       }).join("\n\n");
 
-      const projectsText = `Pinned Repositories:\n\n${formattedProjects}`;
-      setHistory((prev) => [...prev, { id: Math.random().toString(), type: "output", content: projectsText }]);
+      const projectsText = `Actual GitHub Pinned Repositories:\n\n${formattedProjects}`;
+
+      setHistory((prev) => [
+        ...prev.filter((item) => item.id !== "modal-loading-projects"),
+        { id: Math.random().toString(), type: "output", content: projectsText },
+      ]);
+      setIsLoading(false);
       return;
     }
 
@@ -270,7 +261,6 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
       return;
     }
 
-    // Default unknown command
     setHistory((prev) => [
       ...prev,
       {
@@ -321,7 +311,6 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
         className="w-full max-w-2xl bg-[#0a0a0a] border border-neutral-800 rounded-2xl shadow-[0_20px_70px_rgba(0,0,0,0.9),0_0_20px_rgba(124,92,255,0.15)] overflow-hidden flex flex-col font-mono text-sm select-text transition-all animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Terminal Window Header */}
         <div className="h-10 px-4 bg-[#111111] border-b border-neutral-800/80 flex items-center justify-between shrink-0 select-none">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-[#ff5f56] hover:opacity-80 cursor-pointer" onClick={onClose} />
@@ -346,9 +335,8 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
           </div>
         </div>
 
-        {/* Terminal Body */}
         <div
-          className="p-5 sm:p-6 max-h-[60vh] sm:max-h-[480px] overflow-y-auto space-y-3 font-mono text-xs sm:text-sm text-neutral-300 leading-relaxed custom-repo-scroll"
+          className="p-4 sm:p-6 max-h-[60vh] sm:max-h-[480px] overflow-y-auto space-y-3 font-mono text-xs sm:text-sm text-neutral-300 leading-relaxed custom-repo-scroll"
           onClick={() => inputRef.current?.focus()}
         >
           {history.map((item) => {
@@ -382,7 +370,6 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
             );
           })}
 
-          {/* Active Input Line */}
           <div className="flex items-center gap-2 pt-1">
             <span className="text-[#7c5cff] font-bold shrink-0">
               mohit@portfolio:~$
@@ -404,7 +391,6 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
           <div ref={terminalEndRef} />
         </div>
 
-        {/* Terminal Footer Quick Suggestions */}
         <div className="px-4 py-2.5 bg-[#0d0d0d] border-t border-neutral-800/60 flex flex-wrap items-center justify-between gap-2 text-[11px] text-neutral-500 select-none">
           <div className="flex flex-wrap items-center gap-2">
             <span>Try:</span>
@@ -429,7 +415,6 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
   );
 }
 
-// Persistent Floating Corner Hint Component
 export function TerminalCornerHint({ onOpen }) {
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -452,7 +437,7 @@ export function TerminalCornerHint({ onOpen }) {
         };
       }
     } catch {
-      // Ignore if sessionStorage restricted
+      // sessionStorage restricted or unavailable in private browsing
     }
   }, []);
 

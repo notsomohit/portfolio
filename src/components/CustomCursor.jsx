@@ -11,7 +11,6 @@ export default function CustomCursor() {
   const rafId = useRef(null);
 
   useEffect(() => {
-    // Only enable if device uses a fine pointer (desktop mouse/trackpad) and not touch
     const isFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (!isFinePointer) return;
 
@@ -33,9 +32,8 @@ export default function CustomCursor() {
       setIsHovered(!!target);
     };
 
-    // Smooth lerp loop via requestAnimationFrame
     const loop = () => {
-      const ease = 0.18; // smooth lag factor
+      const ease = 0.18;
       currentPos.current.x += (mousePos.current.x - currentPos.current.x) * ease;
       currentPos.current.y += (mousePos.current.y - currentPos.current.y) * ease;
 

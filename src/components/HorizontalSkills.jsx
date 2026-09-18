@@ -1,11 +1,8 @@
-"use client";
-
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { skillClusters } from "../data/skillsData";
 
-// Brand Icons
 import {
   SiJavascript,
   SiTypescript,
@@ -59,7 +56,6 @@ export default function HorizontalSkills() {
   const trackRef = useRef(null);
   const headerRef = useRef(null);
 
-  // Desktop Drag-to-Scroll refs
   const isDragging = useRef(false);
   const startX = useRef(0);
   const startScrollProgress = useRef(0);
@@ -68,7 +64,6 @@ export default function HorizontalSkills() {
   useEffect(() => {
     const mm = gsap.matchMedia();
 
-    // DESKTOP (>= 768px): Pinned Horizontal Track
     mm.add("(min-width: 768px)", () => {
       const track = trackRef.current;
       const container = containerRef.current;
@@ -76,7 +71,6 @@ export default function HorizontalSkills() {
 
       if (!track || !container) return;
 
-      // Animate Section Header on arrival
       if (header) {
         gsap.fromTo(
           header,
@@ -95,16 +89,11 @@ export default function HorizontalSkills() {
         );
       }
 
-      // Dynamic calculation of total horizontal scroll distance ensuring full reach of all 7 clusters
       const getScrollAmount = () => {
         if (!track) return 0;
-        const totalW = track.scrollWidth;
-        const viewW = window.innerWidth;
-        // Generous right padding offset ensures last item (cluster 07) is 100% visible
-        return Math.max(0, totalW - viewW + 120);
+        return Math.max(0, track.scrollWidth - window.innerWidth + 160);
       };
 
-      // Desktop pinned horizontal scroll master tween
       const masterTween = gsap.to(track, {
         x: () => -getScrollAmount(),
         ease: "none",
@@ -121,44 +110,28 @@ export default function HorizontalSkills() {
 
       scrollTriggerInstance.current = masterTween.scrollTrigger;
 
-      // Gentle parallax / presence transition for each cluster stage
       const clusterStages = track.querySelectorAll(".skill-cluster-stage");
       clusterStages.forEach((cluster) => {
         const titleBlock = cluster.querySelector(".cluster-title-block");
         const iconsBlock = cluster.querySelector(".cluster-icons-block");
 
+        if (iconsBlock) {
+          gsap.set(iconsBlock, { opacity: 1, scale: 1 });
+        }
+
         if (titleBlock) {
           gsap.fromTo(
             titleBlock,
-            { opacity: 0.85, y: 0 },
+            { y: 0, opacity: 1 },
             {
-              opacity: 1,
-              y: 0,
+              y: -50,
+              opacity: 0,
               ease: "power1.out",
               scrollTrigger: {
                 trigger: cluster,
                 containerAnimation: masterTween,
-                start: "left 90%",
-                end: "center 50%",
-                scrub: true,
-              },
-            }
-          );
-        }
-
-        if (iconsBlock) {
-          gsap.fromTo(
-            iconsBlock,
-            { scale: 0.98, opacity: 0.85 },
-            {
-              scale: 1,
-              opacity: 1,
-              ease: "power1.out",
-              scrollTrigger: {
-                trigger: cluster,
-                containerAnimation: masterTween,
-                start: "left 90%",
-                end: "center 50%",
+                start: "center 55%",
+                end: "right 20%",
                 scrub: true,
               },
             }
@@ -167,9 +140,10 @@ export default function HorizontalSkills() {
       });
     });
 
-    // MOBILE (< 768px): Header entrance & natural touch horizontal track
     mm.add("(max-width: 767px)", () => {
+      const container = containerRef.current;
       const header = headerRef.current;
+
       if (header) {
         gsap.fromTo(
           header,
@@ -187,9 +161,30 @@ export default function HorizontalSkills() {
           }
         );
       }
+
+      const clusterStages = container?.querySelectorAll(".skill-cluster-stage");
+      clusterStages?.forEach((cluster) => {
+        const titleBlock = cluster.querySelector(".cluster-title-block");
+        if (titleBlock) {
+          gsap.fromTo(
+            titleBlock,
+            { y: 0, opacity: 1 },
+            {
+              y: -20,
+              opacity: 0.25,
+              ease: "power1.out",
+              scrollTrigger: {
+                trigger: cluster,
+                start: "top 30%",
+                end: "top 0%",
+                scrub: true,
+              },
+            }
+          );
+        }
+      });
     });
 
-    // Ensure ScrollTrigger gets accurate measurements after DOM paint
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 200);
@@ -200,7 +195,6 @@ export default function HorizontalSkills() {
     };
   }, []);
 
-  // Desktop Mouse Drag to scroll horizontally
   const handleMouseDown = (e) => {
     if (window.innerWidth < 768 || !scrollTriggerInstance.current) return;
     isDragging.current = true;
@@ -215,11 +209,9 @@ export default function HorizontalSkills() {
     const totalDist = st.end - st.start;
     if (totalDist <= 0) return;
 
-    // Convert pixel drag to scroll progress
     const progressDelta = -dx / totalDist;
     const newProgress = Math.max(0, Math.min(1, startScrollProgress.current + progressDelta));
     
-    // Scroll window / Lenis to corresponding position
     const targetScroll = st.start + newProgress * totalDist;
     if (window.__lenis) {
       window.__lenis.scrollTo(targetScroll, { immediate: true });
@@ -240,65 +232,59 @@ export default function HorizontalSkills() {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#0A0A0A] py-16 sm:py-20 md:py-0 border-t border-neutral-900 select-none"
+      className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#0A0A0A] py-16 sm:py-20 md:py-24 lg:py-0 border-t border-neutral-900 select-none"
     >
-      {/* 1. Section Header */}
-      <div ref={headerRef} className="px-6 sm:px-12 lg:px-20 pt-10 sm:pt-14 pb-2 shrink-0">
-        <div className="flex items-baseline gap-4 sm:gap-6 mb-4">
-          <span className="font-mono text-base sm:text-lg font-bold text-[#8B5CF6]">
+      <div ref={headerRef} className="px-5 sm:px-10 lg:px-20 pt-6 sm:pt-12 lg:pt-14 pb-2 shrink-0">
+        <div className="flex items-baseline gap-3 sm:gap-6 mb-3 sm:mb-4">
+          <span className="font-mono text-sm sm:text-lg font-bold text-[#8B5CF6]">
             02
           </span>
-          <h2 className="font-display text-[clamp(2.75rem,8vw,8rem)] font-black text-white tracking-tight">
+          <h2 className="font-display text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight">
             SKILLS
           </h2>
         </div>
         <div className="w-full h-[1px] bg-neutral-800" />
       </div>
 
-      {/* 2. Track Container: Desktop = GSAP Pinned Horizontal Track; Mobile = Smooth Touch Scrollable Horizontal Strip */}
-      <div className="w-full overflow-x-auto md:overflow-visible custom-repo-scroll pb-6 md:pb-0">
+      <div className="w-full overflow-x-auto md:overflow-visible custom-repo-scroll pb-6 md:pb-0 scroll-smooth">
         <div
           ref={trackRef}
-          className="flex flex-row items-stretch md:items-center gap-10 sm:gap-16 md:gap-28 lg:gap-36 px-6 sm:px-12 lg:px-20 pr-16 sm:pr-32 md:pr-48 lg:pr-64 w-max py-6 md:py-0 md:-mt-10"
+          className="flex flex-row items-stretch md:items-center gap-8 sm:gap-14 md:gap-24 lg:gap-32 px-5 sm:px-10 lg:px-20 pr-16 sm:pr-32 md:pr-48 lg:pr-64 w-max py-4 md:py-0 md:-mt-8"
         >
           {skillClusters.map((cluster) => (
             <div
               key={cluster.name}
-              className="skill-cluster-stage shrink-0 flex flex-col justify-center min-w-[300px] sm:min-w-[440px] md:min-w-[500px] lg:min-w-[620px] relative"
+              className="skill-cluster-stage shrink-0 flex flex-col justify-center min-w-[280px] sm:min-w-[420px] md:min-w-[480px] lg:min-w-[580px] relative"
             >
-              {/* Sub-Category Title Header */}
-              <div className="cluster-title-block will-change-transform mb-6 sm:mb-8">
-                <div className="flex items-baseline gap-3 sm:gap-4 mb-3">
-                  <span className="font-mono text-sm sm:text-lg font-bold text-[#8B5CF6]">
+              <div className="cluster-title-block will-change-transform mb-4 sm:mb-6 lg:mb-8">
+                <div className="flex items-baseline gap-2.5 sm:gap-4 mb-2.5 sm:mb-3">
+                  <span className="font-mono text-xs sm:text-base font-bold text-[#8B5CF6]">
                     {cluster.index}
                   </span>
-                  <h3 className="font-display text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+                  <h3 className="font-display text-xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
                     {cluster.name}
                   </h3>
                 </div>
                 <div className="w-full h-[1px] bg-neutral-800" />
               </div>
 
-              {/* Centerpiece Icons Grid */}
               <div className="cluster-icons-block will-change-transform transition-all duration-300">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-x-10 gap-y-4 sm:gap-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-3 sm:gap-y-5">
                   {cluster.skills.map((skill) => {
                     const Icon = iconComponents[skill.iconKey] || SiJavascript;
                     return (
                       <div
                         key={skill.name}
-                        className="flex items-center gap-3.5 sm:gap-5 group"
+                        className="flex items-center gap-3 sm:gap-4 group"
                       >
-                        {/* Separate Independent Icon Badge */}
-                        <div className="w-[58px] h-[58px] sm:w-[72px] sm:h-[72px] lg:w-[80px] lg:h-[80px] rounded-2xl bg-[#141414] border border-neutral-800/80 flex items-center justify-center shrink-0 group-hover:border-neutral-600 transition-all duration-300 shadow-lg">
+                        <div className="w-[52px] h-[52px] sm:w-[68px] sm:h-[68px] lg:w-[76px] lg:h-[76px] rounded-xl sm:rounded-2xl bg-[#141414] border border-neutral-800/80 flex items-center justify-center shrink-0 group-hover:border-neutral-600 transition-all duration-300 shadow-md">
                           <Icon
-                            className="w-6 h-6 sm:w-8 sm:h-8 group-hover:scale-110 transition-transform duration-300"
+                            className="w-5 h-5 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform duration-300"
                             style={{ color: skill.color }}
                           />
                         </div>
 
-                        {/* Sibling Plain Text Label */}
-                        <span className="font-mono text-sm sm:text-lg lg:text-xl font-medium text-neutral-200 group-hover:text-white transition-colors duration-200">
+                        <span className="font-mono text-xs sm:text-base lg:text-lg font-medium text-neutral-200 group-hover:text-white transition-colors duration-200">
                           {skill.name}
                         </span>
                       </div>
@@ -311,8 +297,7 @@ export default function HorizontalSkills() {
         </div>
       </div>
 
-      {/* 3. Bottom Corner Micro-labels */}
-      <div className="px-6 sm:px-12 lg:px-20 pb-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 text-xs font-mono text-neutral-500 uppercase tracking-widest border-t border-neutral-900 pt-6 shrink-0">
+      <div className="px-5 sm:px-10 lg:px-20 pb-6 sm:pb-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2 text-xs font-mono text-neutral-500 uppercase tracking-widest border-t border-neutral-900 pt-4 sm:pt-6 shrink-0">
         <div className="text-neutral-500 tracking-wider text-[10px] sm:text-xs">
           07 CATEGORIES // TECH & ARCHITECTURE
         </div>

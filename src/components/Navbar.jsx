@@ -48,10 +48,7 @@ export default function Navbar({ activeSection, onNavigate }) {
 
   return (
     <>
-      {/* Top Persistent Bar */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-12 lg:px-20 py-6 sm:py-8 pointer-events-none">
-        
-        {/* Top-Left: Circular "M" Monogram Badge Alone (No text beside it) */}
         <a
           href="#hero"
           onClick={(e) => handleLinkClick(e, "hero")}
@@ -63,7 +60,6 @@ export default function Navbar({ activeSection, onNavigate }) {
           </div>
         </a>
 
-        {/* Top-Right: Minimal Hamburger Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="pointer-events-auto p-3 sm:p-3.5 rounded-full bg-[#141414] hover:bg-[#1f1f1f] text-white border border-[#262626] transition-all duration-200 focus:outline-none flex flex-col items-center justify-center gap-1.5 w-11 h-11 sm:w-12 sm:h-12 group"
@@ -82,7 +78,6 @@ export default function Navbar({ activeSection, onNavigate }) {
         </button>
       </header>
 
-      {/* Full-Screen Minimal Menu Overlay */}
       <div
         className={`fixed inset-0 bg-[#0A0A0A]/98 z-40 flex flex-col justify-between p-6 sm:p-14 lg:p-20 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isOpen
@@ -90,13 +85,11 @@ export default function Navbar({ activeSection, onNavigate }) {
             : "opacity-0 pointer-events-none -translate-y-4"
         }`}
       >
-        {/* Menu Top Meta */}
         <div className="flex justify-between items-center text-xs font-mono text-neutral-500 uppercase tracking-widest border-b border-neutral-800 pb-6 pt-16 sm:pt-14">
           <span>NAVIGATION</span>
           <span className="text-[#8B5CF6]">05 SECTIONS</span>
         </div>
 
-        {/* Big Editorial Nav Links */}
         <nav className="my-auto flex flex-col gap-3 sm:gap-6 py-6">
           {navLinks.map((item) => (
             <a
@@ -115,7 +108,6 @@ export default function Navbar({ activeSection, onNavigate }) {
           ))}
         </nav>
 
-        {/* Menu Bottom Row */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-neutral-400 pt-6 border-t border-neutral-800">
           <div className="flex flex-wrap items-center gap-6 sm:gap-8">
             <a

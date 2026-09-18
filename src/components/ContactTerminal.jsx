@@ -1,32 +1,7 @@
-"use client";
-
 import React, { useState, useEffect, useRef } from "react";
 import { Terminal as TerminalIcon, CornerDownLeft } from "lucide-react";
 import { skillClusters } from "../data/skillsData";
-
-const PINNED_PROJECTS = [
-  {
-    name: "portfolio",
-    description: "Personal minimalist developer portfolio with GSAP kinetic animations & dark aesthetic.",
-    language: "JavaScript",
-    stars: 5,
-    url: "https://github.com/notsomohit/portfolio",
-  },
-  {
-    name: "agentic-workflow-engine",
-    description: "Autonomous LLM agent coordination framework with tool use and memory management.",
-    language: "Python",
-    stars: 8,
-    url: "https://github.com/notsomohit",
-  },
-  {
-    name: "next-fullstack-starter",
-    description: "Production-ready boilerplate featuring Next.js, TypeScript, Tailwind, and Auth.",
-    language: "TypeScript",
-    stars: 4,
-    url: "https://github.com/notsomohit",
-  },
-];
+import { fetchActualPinnedRepos, DEFAULT_PINNED_REPOS } from "../data/githubPinned";
 
 const EMAIL = "mohitascend07@gmail.com";
 const GITHUB_URL = "https://github.com/notsomohit";
@@ -38,7 +13,7 @@ export default function ContactTerminal() {
     {
       id: "init",
       type: "system",
-      content: "Mohit Portfolio Terminal [v1.0.0]\nType 'help' for a list of available commands.",
+      content: "Mohit Portfolio Terminal [v1.0.0]\nType 'help' for available commands.",
     },
   ]);
   const [commandHistory, setCommandHistory] = useState([]);
@@ -49,7 +24,6 @@ export default function ContactTerminal() {
   const terminalEndRef = useRef(null);
   const terminalBoxRef = useRef(null);
 
-  // Auto-scroll output
   useEffect(() => {
     if (terminalEndRef.current) {
       terminalEndRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -125,7 +99,6 @@ export default function ContactTerminal() {
     const cmd = rawCmd.trim();
     if (!cmd) return;
 
-    // Push command line to history
     const cmdEntry = {
       id: Math.random().toString(),
       type: "command",
@@ -146,10 +119,10 @@ export default function ContactTerminal() {
 
     if (normalizedCmd === "help") {
       const helpText = `Available commands:
-  help        → List all available commands
+  help        → List all available functions
   about       → Who I am and what I build
   skills      → Tech stack, frameworks, tools & security
-  projects    → Pinned GitHub repositories and descriptions
+  projects    → Pinned GitHub repositories dynamically synced
   commits     → Fetch recent public commits LIVE from GitHub API
   contact     → All direct contact channels
   email       → Email address
@@ -157,8 +130,8 @@ export default function ContactTerminal() {
   linkedin    → LinkedIn profile URL
   socials     → All social & contact links
   whoami      → Quick identity summary
-  date        → Display current date and time
-  clear       → Clear the terminal screen`;
+  date        → Current system date & time
+  clear       → Clear terminal screen`;
       setHistory((prev) => [...prev, { id: Math.random().toString(), type: "output", content: helpText }]);
       return;
     }
@@ -187,14 +160,32 @@ export default function ContactTerminal() {
     }
 
     if (normalizedCmd === "projects") {
-      const formattedProjects = PINNED_PROJECTS.map((p) => {
-        return `• ${p.name} [${p.language} ★${p.stars}]
-  Description: ${p.description}
-  URL: ${p.url}`;
+      setIsLoading(true);
+      setHistory((prev) => [
+        ...prev,
+        {
+          id: "loading-projects",
+          type: "output",
+          content: "Fetching actual pinned GitHub repositories for @notsomohit ...",
+        },
+      ]);
+
+      const pinnedList = await fetchActualPinnedRepos();
+      const reposToDisplay = pinnedList && pinnedList.length > 0 ? pinnedList : DEFAULT_PINNED_REPOS;
+
+      const formattedProjects = reposToDisplay.map((p) => {
+        return `• ${p.name} [${p.language || "Code"} ★${p.stars ?? 0}]
+  Description: ${p.description || "GitHub repository"}
+  URL: ${p.url || `https://github.com/notsomohit/${p.name}`}`;
       }).join("\n\n");
 
-      const projectsText = `Pinned Repositories:\n\n${formattedProjects}`;
-      setHistory((prev) => [...prev, { id: Math.random().toString(), type: "output", content: projectsText }]);
+      const projectsText = `Actual GitHub Pinned Repositories:\n\n${formattedProjects}`;
+
+      setHistory((prev) => [
+        ...prev.filter((item) => item.id !== "loading-projects"),
+        { id: Math.random().toString(), type: "output", content: projectsText },
+      ]);
+      setIsLoading(false);
       return;
     }
 
@@ -274,7 +265,6 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
       return;
     }
 
-    // Default unknown command
     setHistory((prev) => [
       ...prev,
       {
@@ -318,30 +308,28 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
     <div
       ref={terminalBoxRef}
       onClick={handleFocus}
-      className="w-full h-full min-h-[420px] sm:min-h-[480px] lg:min-h-[520px] bg-[#0a0a0a] border border-neutral-800 rounded-2xl flex flex-col font-mono text-xs sm:text-sm text-neutral-300 shadow-[0_10px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(124,92,255,0.06)] overflow-hidden cursor-text transition-all duration-300 hover:border-neutral-700"
+      className="w-full h-[300px] sm:h-[340px] md:h-[380px] lg:h-[460px] bg-[#0a0a0a] border border-neutral-800 rounded-2xl flex flex-col font-mono text-xs sm:text-sm text-neutral-300 shadow-[0_10px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(124,92,255,0.06)] overflow-hidden cursor-text transition-all duration-300 hover:border-neutral-700"
     >
-      {/* macOS-style Title Bar */}
-      <div className="h-10 px-4 bg-[#111111] border-b border-neutral-800/90 flex items-center justify-between shrink-0 select-none">
+      <div className="h-9 sm:h-10 px-3.5 sm:px-4 bg-[#111111] border-b border-neutral-800/90 flex items-center justify-between shrink-0 select-none">
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block" />
-          <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block" />
-          <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block" />
-          <span className="ml-2.5 text-[11px] sm:text-xs text-neutral-400 font-mono">
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff5f56] inline-block" />
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ffbd2e] inline-block" />
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#27c93f] inline-block" />
+          <span className="ml-2 text-[10px] sm:text-xs text-neutral-400 font-mono truncate max-w-[180px] sm:max-w-none">
             mohit@portfolio: ~/contact
           </span>
         </div>
-        <div className="flex items-center gap-2 text-neutral-500 text-[10px] sm:text-[11px]">
-          <TerminalIcon className="w-3.5 h-3.5 text-[#7c5cff]" />
+        <div className="flex items-center gap-1.5 text-neutral-500 text-[10px] sm:text-[11px]">
+          <TerminalIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#7c5cff]" />
           <span className="hidden sm:inline">bash</span>
         </div>
       </div>
 
-      {/* Terminal Body & Scrollable Area */}
-      <div className="flex-1 p-4 sm:p-5 overflow-y-auto space-y-3 font-mono text-xs sm:text-[13px] leading-relaxed custom-repo-scroll max-h-[420px] sm:max-h-[460px]">
+      <div className="flex-1 p-3 sm:p-4 lg:p-5 overflow-y-auto space-y-2.5 sm:space-y-3 font-mono text-[11px] sm:text-xs md:text-[13px] leading-relaxed custom-repo-scroll">
         {history.map((item) => {
           if (item.type === "command") {
             return (
-              <div key={item.id} className="flex items-start gap-2 text-white">
+              <div key={item.id} className="flex items-start gap-1.5 sm:gap-2 text-white">
                 <span className="text-[#7c5cff] font-bold shrink-0">
                   mohit@portfolio:~$
                 </span>
@@ -364,15 +352,14 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
           return (
             <pre
               key={item.id}
-              className="whitespace-pre-wrap font-mono text-neutral-200 bg-[#0e0e0e]/70 p-3 rounded-lg border border-neutral-800/60 m-0 select-text overflow-x-auto leading-relaxed"
+              className="whitespace-pre-wrap font-mono text-neutral-200 bg-[#0e0e0e]/70 p-2.5 sm:p-3 rounded-lg border border-neutral-800/60 m-0 select-text overflow-x-auto leading-relaxed"
             >
               {item.content}
             </pre>
           );
         })}
 
-        {/* Active Input Line */}
-        <div className="flex items-center gap-2 pt-1">
+        <div className="flex items-center gap-1.5 sm:gap-2 pt-0.5">
           <span className="text-[#7c5cff] font-bold shrink-0">
             mohit@portfolio:~$
           </span>
@@ -388,18 +375,17 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
               autoComplete="off"
               autoCapitalize="off"
               aria-label="Terminal input prompt"
-              className="w-full bg-transparent border-none outline-none text-white font-mono text-xs sm:text-[13px] p-0 m-0 focus:ring-0 caret-[#7c5cff]"
-              placeholder={history.length === 1 ? "type 'help' or command..." : ""}
+              className="w-full bg-transparent border-none outline-none text-white font-mono text-[11px] sm:text-xs md:text-[13px] p-0 m-0 focus:ring-0 caret-[#7c5cff]"
+              placeholder={history.length === 1 ? "type 'help'..." : ""}
             />
           </div>
         </div>
         <div ref={terminalEndRef} />
       </div>
 
-      {/* Terminal Quick Action Shortcuts / Footer */}
-      <div className="px-4 py-2 bg-[#0d0d0d] border-t border-neutral-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px] text-neutral-500 select-none">
-        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-          <span className="text-neutral-500">Quick:</span>
+      <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#0d0d0d] border-t border-neutral-800/80 flex flex-wrap items-center justify-between gap-1.5 text-[10px] sm:text-[11px] text-neutral-500 select-none">
+        <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
+          <span className="text-neutral-500 text-[10px]">Try:</span>
           {["help", "about", "skills", "projects", "commits"].map((cmd) => (
             <button
               key={cmd}
@@ -411,15 +397,15 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
                   handleFocus();
                 }
               }}
-              className="px-2 py-0.5 rounded bg-neutral-900/90 border border-neutral-800 hover:border-[#7c5cff]/60 hover:text-white text-neutral-400 font-mono transition-colors cursor-pointer text-[10px] sm:text-[11px]"
+              className="px-1.5 sm:px-2 py-0.5 rounded bg-neutral-900/90 border border-neutral-800 hover:border-[#7c5cff]/60 hover:text-white text-neutral-400 font-mono transition-colors cursor-pointer text-[10px] sm:text-[11px]"
             >
               {cmd}
             </button>
           ))}
         </div>
         <div className="flex items-center gap-1 text-[10px] text-neutral-500 font-mono">
-          <span>↑/↓ history</span>
-          <CornerDownLeft className="w-2.5 h-2.5 ml-1 text-neutral-600" />
+          <span>↑/↓</span>
+          <CornerDownLeft className="w-2.5 h-2.5 ml-0.5 text-neutral-600" />
         </div>
       </div>
     </div>

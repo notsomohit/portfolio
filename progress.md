@@ -10,34 +10,25 @@
 
 ## Completed Design & Implementation
 
-- [x] **Skills Horizontal Scroll Fix (`HorizontalSkills.jsx`)**
-  - Dynamically computes horizontal scroll distance on desktop pinned track to prevent cutoff before reaching the last cluster.
-  - Generous right clearance padding (`pr-16 sm:pr-32 md:pr-48 lg:pr-64`) so Cluster `07 SECURITY & AUTH` (`JWT`, `bcrypt`, `Arcjet`) is 100% visible and unclipped.
-  - Smooth desktop mouse drag-to-scroll support integrated directly with Lenis and GSAP ScrollTrigger progress.
-  - Native horizontal touch scrolling on mobile (`overflow-x-auto`, custom scrollbar, touch gestures).
+- [x] **Desktop Sticky Showcase Scroll Experience (`StickyProjects.jsx`)**
+  - Section is pinned on PC (`min-width: 1024px`) via GSAP ScrollTrigger (`end: () => +=${totalSlots * 90}vh`, `scrub: 0.5`).
+  - As user scrolls, the active project slot seamlessly advances with smooth transitions (content swap + preview image crossfades).
+  - Slot progress indicators (`01/03`, `02/03`, `03/03`) visually reflect active scroll position.
+  - Pinned behavior is disabled on mobile — cards stack and scroll in normal document flow.
 
-- [x] **Contact Section Heading Scale & Stacked Layout (`Contact.jsx`)**
-  - Scaled down oversized "LET'S TALK." heading to `text-4xl sm:text-5xl lg:text-6xl`.
-  - Maintained two-line stacked layout (`LET'S` / `TALK.`) with violet accent dot `<span className="text-[#8B5CF6]">.</span>`.
-  - Updated link card URLs to `https://github.com/notsomohit` and `https://www.linkedin.com/in/notsomohit/`.
+- [x] **Dynamic Actual GitHub Pinned Repositories (`githubPinned.js`, `GithubStats.jsx`, `ContactTerminal.jsx`, `TerminalModal.jsx`)**
+  - Replaced hardcoded repo lists with dynamic fetching helper (`fetchActualPinnedRepos`) that queries `https://github.com/notsomohit` to extract live pinned repos with stars, forks, language, and descriptions.
+  - Synced across both the homepage Activity section and the Terminal's `projects` command.
 
-- [x] **Two-Column Contact Section Layout with Embedded Terminal (`Contact.jsx` & `ContactTerminal.jsx`)**
-  - Left column: Scaled-down heading, description text, and dark direct action link cards (Email, GitHub, LinkedIn).
-  - Right column: Fully interactive inline Terminal client component (`ContactTerminal.jsx`).
-  - Styled with dark theme (`#0a0a0a` background, `neutral-800` border, monospace font, `#7c5cff` purple prompt accent and caret).
-  - macOS-style window titlebar (`#ff5f56`, `#ffbd2e`, `#27c93f` dots + `mohit@portfolio: ~/contact` title).
-  - Clicking anywhere inside the terminal focuses the command input prompt.
-  - Up/Down arrow key command history navigation (`ArrowUp` / `ArrowDown`).
-  - 100% inline responses without page redirects for all commands.
+- [x] **Skills Section Headings Scroll-Out Animation (`HorizontalSkills.jsx`)**
+  - Column headings (`01 LANGUAGES`, `02 FRAMEWORKS`, `03 DATA & ML`, etc.) translate upward along the Y axis (`y: -50`) and fade out (`opacity: 0`) as the user scrolls past them on the pinned desktop track.
+  - Skill icon badges and labels remain 100% visible and unaffected.
+  - Subtle upward fade-out on mobile as well (`y: -20`, `opacity: 0.25`).
 
-- [x] **Full Terminal Command Suite (`help`, `about`, `skills`, `projects`, `commits`, `contact`, `email`, `github`, `linkedin`, `socials`, `whoami`, `date`, `clear`)**
-  - `help` → Lists all available functions.
-  - `about` → Mohit's bio and focus from the portfolio.
-  - `skills` → Complete tech stack & tools organized by the 7 clusters from `skillsData.js`.
-  - `projects` → Pinned repositories (`portfolio`, `agentic-workflow-engine`, `next-fullstack-starter`) with descriptions, language, and stars.
-  - `commits` → Live GitHub API fetch (`https://api.github.com/users/notsomohit/events/public`) filtering for PushEvents, formatting repo names, dates, and commit messages.
-  - `contact` / `email` / `github` / `linkedin` / `socials` → Clean inline contact links and addresses.
-  - `whoami`, `date`, `clear` → Instant inline utilities.
+- [x] **Harmonious Mobile Spacing & Section Padding Audit**
+  - Standardized responsive section padding across all sections (`px-5 sm:px-10 lg:px-20`, `py-16 sm:py-20 md:py-24 lg:py-28`).
+  - Proper spacing inside cards, grids, and headings to prevent squished layouts on small screens.
+  - Ensured horizontal track on mobile has clean gaps and ample right clearance padding (`pr-16 sm:pr-32 md:pr-48 lg:pr-64`) so the final skill cluster is completely visible.
 
 - [x] **Build & Runtime Verification**
-  - Vite production bundle built with 0 errors (`dist/index.html`, `dist/assets/index.js`, `dist/assets/index.css`).
+  - Production build compiled with zero errors in 898ms.
