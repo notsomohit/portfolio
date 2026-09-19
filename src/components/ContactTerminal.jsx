@@ -363,7 +363,7 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
     <div
       ref={terminalBoxRef}
       onClick={handleFocus}
-      className="w-full h-[300px] sm:h-[340px] md:h-[380px] lg:h-[460px] bg-[#0a0a0a] border border-neutral-800 rounded-2xl flex flex-col font-mono text-xs sm:text-sm text-neutral-300 shadow-[0_10px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(124,92,255,0.06)] overflow-hidden cursor-text transition-all duration-300 hover:border-neutral-700"
+      className="w-full h-[300px] sm:h-[340px] md:h-[380px] lg:h-[460px] bg-[#0a0a0a] border border-neutral-800 rounded-2xl flex flex-col font-mono text-xs sm:text-sm text-neutral-300 shadow-xl overflow-hidden cursor-text transition-colors duration-200 hover:border-neutral-700"
     >
       <div className="h-9 sm:h-10 px-3.5 sm:px-4 bg-[#111111] border-b border-neutral-800/90 flex items-center justify-between shrink-0 select-none">
         <div className="flex items-center gap-2">

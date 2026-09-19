@@ -121,10 +121,7 @@ export default function GithubStats() {
       ref={containerRef}
       className="relative px-5 sm:px-10 lg:px-20 py-16 sm:py-20 md:py-24 lg:py-28 bg-[#0A0A0A] border-t border-neutral-900 select-none overflow-hidden"
     >
-      {/* Background subtle radial glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-purple-900/10 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div ref={headerRef} className="mb-10 sm:mb-14">
           <div className="flex items-baseline justify-between flex-wrap gap-4 mb-3 sm:mb-4">
@@ -141,7 +138,7 @@ export default function GithubStats() {
               href="https://github.com/notsomohit"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs sm:text-sm text-neutral-400 hover:text-white flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#141414] border border-neutral-800 hover:border-neutral-700 transition-colors group shadow-md"
+              className="font-mono text-xs sm:text-sm text-neutral-400 hover:text-white flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#141414] border border-neutral-800 hover:border-neutral-700 transition-colors group"
             >
               <GithubIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8B5CF6]" />
               <span>@notsomohit</span>
@@ -167,14 +164,12 @@ export default function GithubStats() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-10"
         >
           {/* Card 1: Total Commits */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#141414]/90 border border-neutral-800/90 hover:border-[#8B5CF6]/50 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group shadow-lg">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-[#8B5CF6]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#8B5CF6]/20 transition-colors" />
-            
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#141414] border border-neutral-800 hover:border-neutral-700 transition-colors flex flex-col justify-between group">
             <div className="flex items-center justify-between text-neutral-400 mb-3">
               <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-neutral-400">
                 TOTAL COMMITS
               </span>
-              <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center text-[#8B5CF6]">
+              <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-[#8B5CF6]">
                 <GitCommit className="w-4 h-4" />
               </div>
             </div>
@@ -199,14 +194,12 @@ export default function GithubStats() {
           </div>
 
           {/* Card 2: Current Streak */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#141414]/90 border border-neutral-800/90 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group shadow-lg">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-amber-500/20 transition-colors" />
-
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#141414] border border-neutral-800 hover:border-neutral-700 transition-colors flex flex-col justify-between group">
             <div className="flex items-center justify-between text-neutral-400 mb-3">
               <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-neutral-400">
                 CURRENT STREAK
               </span>
-              <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+              <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-amber-400">
                 <Flame className="w-4 h-4" />
               </div>
             </div>
@@ -229,21 +222,19 @@ export default function GithubStats() {
             <div className="pt-3 mt-2 border-t border-neutral-800/80 flex items-center justify-between text-[11px] sm:text-xs font-mono">
               <span className="text-neutral-400">Daily consistency</span>
               <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 ACTIVE
               </span>
             </div>
           </div>
 
           {/* Card 3: Longest Streak */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#141414]/90 border border-neutral-800/90 hover:border-yellow-500/50 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group shadow-lg">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-yellow-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-yellow-500/20 transition-colors" />
-
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#141414] border border-neutral-800 hover:border-neutral-700 transition-colors flex flex-col justify-between group">
             <div className="flex items-center justify-between text-neutral-400 mb-3">
               <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-neutral-400">
                 LONGEST STREAK
               </span>
-              <div className="w-8 h-8 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400">
+              <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-yellow-400">
                 <Trophy className="w-4 h-4" />
               </div>
             </div>
@@ -265,19 +256,17 @@ export default function GithubStats() {
 
             <div className="pt-3 mt-2 border-t border-neutral-800/80 flex items-center justify-between text-[11px] sm:text-xs font-mono text-neutral-400">
               <span className="text-neutral-400">Personal record</span>
-              <span className="text-yellow-400 font-semibold">Max Continuous</span>
+              <span className="text-neutral-300 font-semibold">Max Continuous</span>
             </div>
           </div>
 
           {/* Card 4: Public Repositories */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#141414]/90 border border-neutral-800/90 hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group shadow-lg">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-indigo-500/20 transition-colors" />
-
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#141414] border border-neutral-800 hover:border-neutral-700 transition-colors flex flex-col justify-between group">
             <div className="flex items-center justify-between text-neutral-400 mb-3">
               <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-neutral-400">
                 PUBLIC REPOS
               </span>
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+              <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-indigo-400">
                 <FolderGit2 className="w-4 h-4" />
               </div>
             </div>
@@ -290,14 +279,14 @@ export default function GithubStats() {
                   <span className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
                     {stats.publicRepos}
                   </span>
-                  <span className="font-mono text-xs sm:text-sm text-indigo-400 font-semibold">Repos</span>
+                  <span className="font-mono text-xs sm:text-sm text-neutral-300 font-semibold">Repos</span>
                 </div>
               )}
             </div>
 
             <div className="pt-3 mt-2 border-t border-neutral-800/80 flex items-center justify-between text-[11px] sm:text-xs font-mono text-neutral-400">
               <span className="text-neutral-400">Open source code</span>
-              <span className="text-indigo-400 font-semibold">GitHub</span>
+              <span className="text-neutral-300 font-semibold">GitHub</span>
             </div>
           </div>
         </div>
@@ -305,7 +294,7 @@ export default function GithubStats() {
         {/* Heatmap Card */}
         <div
           ref={chartCardRef}
-          className="p-5 sm:p-7 lg:p-8 rounded-2xl bg-[#141414]/90 border border-neutral-800/90 overflow-hidden relative shadow-2xl"
+          className="p-5 sm:p-7 lg:p-8 rounded-2xl bg-[#141414] border border-neutral-800 overflow-hidden relative"
         >
           <div className="flex items-center justify-between flex-wrap gap-3 mb-5 sm:mb-6">
             <div className="flex items-center gap-2 sm:gap-3">
