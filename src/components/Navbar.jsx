@@ -7,7 +7,6 @@ const navLinks = [
   { num: "02", label: "SKILLS", id: "skills" },
   { num: "03", label: "PROJECTS", id: "projects" },
   { num: "04", label: "GITHUB", id: "github" },
-  { num: "05", label: "CONTACT", id: "contact" },
 ];
 
 export default function Navbar({ activeSection, onNavigate }) {
@@ -79,7 +78,7 @@ export default function Navbar({ activeSection, onNavigate }) {
       </header>
 
       <div
-        className={`fixed inset-0 bg-[#0A0A0A]/98 z-40 flex flex-col justify-between p-6 sm:p-14 lg:p-20 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed inset-0 bg-[#0A0A0A] z-40 flex flex-col justify-between p-6 sm:p-14 lg:p-20 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isOpen
             ? "opacity-100 pointer-events-auto translate-y-0"
             : "opacity-0 pointer-events-none -translate-y-4"

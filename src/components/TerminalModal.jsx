@@ -359,11 +359,11 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 sm:p-6"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-2xl bg-[#0a0a0a] border border-neutral-800 rounded-2xl shadow-[0_20px_70px_rgba(0,0,0,0.9),0_0_20px_rgba(124,92,255,0.15)] overflow-hidden flex flex-col font-mono text-sm select-text transition-all animate-in fade-in zoom-in-95 duration-200"
+        className="w-full max-w-2xl bg-[#0a0a0a] border border-neutral-800 rounded-xl shadow-2xl overflow-hidden flex flex-col font-mono text-sm select-text"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="h-10 px-4 bg-[#111111] border-b border-neutral-800/80 flex items-center justify-between shrink-0 select-none">
@@ -471,78 +471,14 @@ identity: Mohit — Full-stack developer building clean, functional systems & ag
 }
 
 export function TerminalCornerHint({ onOpen }) {
-  const [showTooltip, setShowTooltip] = useState(false);
-
-  useEffect(() => {
-    try {
-      const hasSeen = sessionStorage.getItem("mohit_cli_hint_seen");
-      if (!hasSeen) {
-        const timer = setTimeout(() => {
-          setShowTooltip(true);
-          sessionStorage.setItem("mohit_cli_hint_seen", "true");
-        }, 1500);
-
-        const hideTimer = setTimeout(() => {
-          setShowTooltip(false);
-        }, 8500);
-
-        return () => {
-          clearTimeout(timer);
-          clearTimeout(hideTimer);
-        };
-      }
-    } catch {
-      // sessionStorage restricted or unavailable in private browsing
-    }
-  }, []);
-
   return (
-    <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-2">
-      {showTooltip && (
-        <div className="animate-bounce font-mono text-[11px] px-3 py-1.5 rounded-lg bg-[#181818] border border-[#7c5cff]/60 text-white shadow-[0_4px_20px_rgba(124,92,255,0.35)] flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#7c5cff] animate-ping" />
-          <span>Interactive terminal available</span>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowTooltip(false);
-            }}
-            className="text-neutral-500 hover:text-white ml-1 text-xs leading-none"
-            aria-label="Dismiss hint"
-          >
-            ×
-          </button>
-        </div>
-      )}
-
-      <button
-        onClick={onOpen}
-        className="px-4 py-2.5 rounded-xl bg-[#121212]/95 hover:bg-[#1a1a1a] text-neutral-200 hover:text-white border border-[#7c5cff]/50 hover:border-[#7c5cff] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8),0_0_18px_rgba(124,92,255,0.25)] hover:shadow-[0_4px_25px_rgba(124,92,255,0.4)] backdrop-blur-md flex items-center gap-2.5 font-mono text-xs group cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#7c5cff]"
-        title="Open Interactive CLI Terminal (Press ` or Ctrl+K)"
-        aria-label="Open Interactive CLI Terminal"
-      >
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7c5cff] opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#7c5cff] shadow-[0_0_8px_#7c5cff]" />
-        </span>
-
-        <TerminalIcon className="w-3.5 h-3.5 text-[#7c5cff] group-hover:scale-110 transition-transform" />
-
-        <span className="hidden sm:inline font-mono">
-          <span className="text-white font-semibold">CLI</span> press{" "}
-          <span className="text-[#7c5cff] font-bold bg-[#7c5cff]/15 border border-[#7c5cff]/40 px-1.5 py-0.5 rounded text-[11px]">
-            `
-          </span>{" "}
-          or{" "}
-          <span className="text-[#7c5cff] font-bold bg-[#7c5cff]/15 border border-[#7c5cff]/40 px-1.5 py-0.5 rounded text-[11px]">
-            Ctrl+K
-          </span>
-        </span>
-
-        <span className="sm:hidden font-bold text-white flex items-center gap-1">
-          CLI <span className="text-[#7c5cff] text-[10px]">[Ctrl+K]</span>
-        </span>
-      </button>
-    </div>
+    <button
+      onClick={onOpen}
+      className="fixed bottom-5 right-5 z-40 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#141414] border border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-white flex items-center justify-center transition-colors focus:outline-none cursor-pointer"
+      title="Terminal (Press ` or Ctrl+K)"
+      aria-label="Open CLI Terminal"
+    >
+      <TerminalIcon className="w-4 h-4" />
+    </button>
   );
 }

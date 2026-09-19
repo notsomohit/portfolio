@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { User } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const aboutPhotoSrc = null;
+const aboutPhotoSrc =
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZHdrcTdhaHR2aWQ5Mm9weWdsa25jZ3NubnZ4eTBlcHZyZnlmajJvdyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/8fgwop8fhah9K/giphy.gif";
 
 export default function About() {
   const containerRef = useRef(null);
@@ -101,27 +101,14 @@ export default function About() {
           >
             <div
               id="about-3d-container"
-              className="w-full max-w-sm sm:max-w-md lg:max-w-[540px] aspect-[4/5] min-h-[300px] sm:min-h-[400px] lg:h-[640px] rounded-2xl bg-[#141414] border border-neutral-800/80 flex flex-col items-center justify-center relative overflow-hidden group hover:border-neutral-700 transition-colors duration-300 shadow-2xl select-none"
+              className="w-full max-w-sm sm:max-w-md lg:max-w-[540px] aspect-[4/5] min-h-[300px] sm:min-h-[400px] lg:h-[640px] rounded-2xl bg-[#141414] border border-neutral-800 flex items-center justify-center relative overflow-hidden group hover:border-neutral-700 transition-colors duration-300 shadow-xl select-none"
             >
-              {aboutPhotoSrc ? (
-                <img
-                  src={aboutPhotoSrc}
-                  alt="Mohit Portrait"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="flex flex-col items-center justify-center gap-3.5 text-center p-6 z-10">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#1c1c1c] border border-neutral-700/60 flex items-center justify-center text-neutral-500 group-hover:text-[#8B5CF6] transition-colors">
-                    <User className="w-6 h-6 sm:w-7 sm:h-7" />
-                  </div>
-                  <div className="font-mono text-xs text-neutral-500 tracking-wider uppercase">
-                    <span>3D MODEL / PORTRAIT ASSET</span>
-                    <span className="block text-[10px] text-neutral-600 mt-1">
-                      (Container ready · 590 × 730)
-                    </span>
-                  </div>
-                </div>
-              )}
+              <img
+                src={aboutPhotoSrc}
+                alt="Mohit Portrait"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
 
               <div className="absolute top-3 left-3 w-3 h-3 border-t border-l border-neutral-700 pointer-events-none" />
               <div className="absolute top-3 right-3 w-3 h-3 border-t border-r border-neutral-700 pointer-events-none" />
